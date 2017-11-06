@@ -12,6 +12,12 @@ const snake = {
   snakeSize: [[19,20],[18,20],[17,20],[16,20],[15,20]],
 };
 
+function food() {
+  var a = getRandomInt(0, 41);
+  var b = getRandomInt(0, 41);
+  return new Array (a, b);
+}
+
 function whichDirection() {
     $(document).keypress(function(event) {
       if (event.which === 119) {
@@ -43,6 +49,14 @@ function move() {
         } else if (snake.direction == "d") {
           snake.position[1] = snake.position[1]+1;
         }
+        if (snake.position.join('').toString() == snakeFoodID ) {
+      console.log(true);
+      snake.snakeSize.push(snakeFoodInt);
+      snakeFoodInt = food();
+      snakeFoodID = snakeFoodInt.join('').toString();
+      $('#' + snakeFoodID +'').text('X');
+
+          }
         snake.snakeSize.unshift(snake.position.map(x => x)); //If you add the variable to the array directly the whole array will update everytime the snake.position is!
 
         for (var i = 0; i < snake.snakeSize.length; i++) {
@@ -54,14 +68,18 @@ function move() {
         $('#' + snake.snakeSize[lastPosition].join('').toString()+'').text(' ');
         snake.snakeSize.pop();
 
-        if (40 == snake.position[0]) {
+        if (snake.position[0] == 40 || 0) {
           clearTimeout();
-        } else if (40 == snake.position[1]) {
+        } else if (snake.position[1] == 40 || 0) {
           clearTimeout();
         } else {
           move();
         }
     }, 500);
+}
+
+function foodLogic() {
+   $('#' + snakeFoodID +'').text('X');
 }
 
 function render() {
@@ -73,7 +91,9 @@ function render() {
   }
 	$('.square').height(size).width(size);
 }
-
+var snakeFoodInt = food();
+var snakeFoodID = snakeFoodInt.join('').toString();
 $(document).ready(render());
+foodLogic
 whichDirection();
 move();
