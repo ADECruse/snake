@@ -40,13 +40,14 @@ function food() {
   var b = getRandomInt(0, 41);
   return new Array (a, b);
 }
-
+let speed = 500
 function foodLogic() {
    if (snake.position.join('').toString() == snakeFoodID ) {
      snake.snakeSize.push(snakeFoodInt);
      snakeFoodInt = food();
      snakeFoodID = snakeFoodInt.join('').toString();
      $('#' + snakeFoodID +'').text('X');
+     speed = speed - 10
      }
 }
 
@@ -84,7 +85,7 @@ function move() {
         } else {
           move();
       }
-    }, 500);
+    }, speed);
 }
 
 function render() {
@@ -99,7 +100,6 @@ function render() {
 
 $(grid[snake.position[0]][snake.position[1]]).text('O');
 $(document).ready(render());
-
 $('#' + snakeFoodID +'').text('X');
 whichDirection();
 move();
