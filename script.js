@@ -8,8 +8,8 @@ const grid = new Array (40);
 
 const snake = {
   position: [20,20], //this adds the variable to the array not the damn numbers, so the array updates everytime the var is!
-  direction:"s",
-  snakeSize: [[20,20]],
+  direction:"d",
+  snakeSize: [[20,19],[20,18],[20,17]],
 };
 
 function whichDirection() {
@@ -78,9 +78,9 @@ function move() {
           clearTimeout();
         } else if (snake.position[1] === 40) {
           clearTimeout();
-        } else if (snake.position[0] === 0) {
+        } else if (snake.position[0] === -1) {
           clearTimeout();
-        } else if (snake.position[1] === 0) {
+        } else if (snake.position[1] === -1) {
           clearTimeout();
         } else {
           move();
